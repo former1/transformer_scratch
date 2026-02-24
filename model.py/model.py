@@ -84,6 +84,13 @@ class feed_forward_network(nn.Module):
         self.linear2= nn.Linear(ff_hidden_dim, d_model)
         self.relu= nn.ReLU()
         self.dropout= nn.Dropout(dropout)
+    
+    def forward(self, x):
+        x= self.linear1(x)
+        x= self.relu(x)
+        x= self.dropout(x)
+        x= self.linear2(x)
+        return x
 
 class Encoder_Layer(nn.Module):
     def __init__(self, d_model, ff_hidden_dim, n_heads, dropout):
