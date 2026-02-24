@@ -34,6 +34,25 @@ class positional_encoding(nn.Module):
             return pe
 
 
+
+# input = sentence with max length of max_sequence_length, 
+# output  = embedded sentence with positional encoding and dropout, ready to be fed into the encoder layers.
+# given a sentence, we first convert it to token ids, then apply embedding with dim = d_model
+# afterwards we add positional encoding and apply dropout.
+class sentence_embedding(x):
+
+    def __init__(self,  max_sequence_length,d_model, language_index_convert, START_TOKEN, END_TOKEN, PAD_TOKEN):
+        super().__init__()
+        self.vocab_size= len(language_index_convert)
+        self.max_sequence_length= max_sequence_length
+        self.language_index_convert= language_index_convert
+        pos_encoder= positional_encoding(d_model, max_sequence_length)
+        self.dropout= nn.Dropout(0.1)
+        self.embedding = nn.Embedding(self.vocab_size, d_model)
+        self.START_TOKEN= START_TOKEN
+        self.END_TOKEN= END_TOKEN
+        self.PAD_TOKEN= PAD_TOKEN        
+
 # classical mha, we use the same linear layer to project the input into q,k,v.
 # Then we split the projected output into q,k,v
 class multi_head_attention(q,k,v,mask=None):
